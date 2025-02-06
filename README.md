@@ -4,13 +4,13 @@ Este documento é uma proposta de arquitetura para um sistema de **Fluxo de Caix
 
 **Índice de Conteúdos**
 
-* [Mapeamento de Domínios Funcionais e Capacidades de Negócio](#mapeamento-de-domínios-funcionais-e-capacidades-de-negócio)
-* [Requisitos Funcionais e Não Funcionais](#requisitos-funcionais-e-não-funcionais)
-* [Desenho Completo da Solução (Arquitetura Alvo)](#desenho-completo-da-solução-arquitetura-alvo)
-* [Justificativa para Escolha de Ferramentas/Tecnologias e Arquitetura](#justificativa-para-escolha-de-ferramentas-tecnologias-e-arquitetura)
-* [Links para os Repositórios de Código](#links-para-os-repositórios-de-código)
+* [Mapeamento](#mapeamento)
+* [Requisitos](#requisitos)
+* [Arquitetura)](#arquitetura)
+* [Justificativas](#justificativas)
+* [Repositórios](#repositórios)
 
-## ✅ **Mapeamento de Domínios Funcionais e Capacidades de Negócio**  
+## Mapeamento
 
 O **fluxo de caixa** do comerciante pode ser dividido em dois principais domínios funcionais:  
 
@@ -59,8 +59,9 @@ O **fluxo de caixa** do comerciante pode ser dividido em dois principais domíni
 | `balance`      | `BigDecimal`    | Saldo total consolidado no dia            |
 | `createdAt`    | `ZonedDateTime` | Data e hora da criação do registro        |
 | `updatedAt`    | `ZonedDateTime` | Data e hora da última atualização         |
+***
 
-## ✅ **Requisitos Funcionais e Não Funcionais**  
+## Requisitos  
 
 ### **Requisitos Funcionais**  
 - O sistema deve permitir **cadastro de lançamentos** financeiros.
@@ -76,8 +77,11 @@ O **fluxo de caixa** do comerciante pode ser dividido em dois principais domíni
 - **Segurança**:  
   - Autenticação e autorização para acessar os serviços.  
 - **Monitoramento e Observabilidade**: Logs estruturados e métricas de uso para acompanhar o desempenho.
+***
 
-## ✅ **Desenho Completo da Solução (Arquitetura Alvo)**  
+## Arquitetura Alvo
+
+![Container Diagram](docs/diagrams/02-ContainerDiagram.png)
 
 A arquitetura proposta segue um modelo de **Microsserviços** para garantir **desempenho, escalabilidade e resiliência**.  
 
@@ -103,12 +107,9 @@ A arquitetura proposta segue um modelo de **Microsserviços** para garantir **de
 - **Open Telemetry** para rastreamento de requisições e métricas de desempenho.
 - **LGTM Stack** (Loki, Grafana, Tempo, Mimir) para monitoramento e análise de logs.
 
-### **Diagrama da Arquitetura em Containers (Modelo C4)**
----
+***
 
-![Container Diagram](docs/diagrams/02-ContainerDiagram.png)
-
-## ✅ **Justificativa para Escolha de Ferramentas/Tecnologias e Arquitetura**  
+## Justificativas 
 
 ### **1️⃣ Microsserviços vs Monolito**  
 ✔ **Microsserviços** permitem maior **escalabilidade e resiliência**.  
@@ -130,5 +131,11 @@ A arquitetura proposta segue um modelo de **Microsserviços** para garantir **de
 | **Kafka**               | Fila de mensagens escalável e tolerante a falhas           |
 | **LGTM Stack**          | Monitoramento e análise de logs eficientes                 |
 | **Docker + Kubernetes** | Orquestração para escalabilidade automática                |
+***
 
----
+## Repositórios
+
+* [Transaction API .NET Core](https://github.com/jtsato/fms-transaction-api-netcore)
+* [Balance API .NET Core](https://github.com/jtsato/fms-balance-api-netcore)
+
+***
