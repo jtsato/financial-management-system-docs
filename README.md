@@ -1,3 +1,11 @@
+**Índice de Conteúdos**
+
+* [Mapeamento de Domínios Funcionais e Capacidades de Negócio](#mapeamento-de-domínios-funcionais-e-capacidades-de-negócio)
+* [Requisitos Funcionais e Não Funcionais](#requisitos-funcionais-e-não-funcionais)
+* [Desenho Completo da Solução (Arquitetura Alvo)](#desenho-completo-da-solução-arquitetura-alvo)
+* [Justificativa para Escolha de Ferramentas/Tecnologias e Arquitetura](#justificativa-para-escolha-de-ferramentas-tecnologias-e-arquitetura)
+* [Links para os Repositórios de Código](#links-para-os-repositórios-de-código)
+
 ## ✅ **Mapeamento de Domínios Funcionais e Capacidades de Negócio**  
 
 O **fluxo de caixa** do comerciante pode ser dividido em dois principais domínios funcionais:  
