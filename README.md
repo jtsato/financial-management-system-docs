@@ -6,7 +6,7 @@ Este documento é uma proposta de arquitetura para um sistema de **Fluxo de Caix
 
 * [Mapeamento](#mapeamento)
 * [Requisitos](#requisitos)
-* [Arquitetura)](#arquitetura)
+* [Arquitetura](#arquitetura)
 * [Justificativas](#justificativas)
 * [Repositórios](#repositórios)
 
