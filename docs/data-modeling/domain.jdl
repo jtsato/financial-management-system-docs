@@ -1,0 +1,51 @@
+enum Type {
+    DEBIT,
+    CREDIT
+}
+
+enum Status {
+    ACTIVE,
+    DELETED
+}
+
+enum Action {
+    INSERTED,
+    MODIFIED,
+    DELETED
+}
+
+entity Transaction {
+    id Long required,
+    description String required,
+    amount BigDecimal required,
+    type Type required
+    date Instant required,
+    status Status required,
+    createdAt ZonedDateTime required,
+    updatedAt ZonedDateTime required
+}
+
+entity DailyBalance {
+    id Long required,
+    balanceDate LocalDate required unique,
+    balance BigDecimal required,
+    createdAt ZonedDateTime required,
+    updatedAt ZonedDateTime required
+}
+
+entity TransactionAudit {
+    id Long required,
+    action Action required,
+    oldDescription String,
+    oldAmount BigDecimal,
+    oldType Type,
+    changeDate ZonedDateTime required
+}
+
+relationship OneToMany {
+    Transaction to TransactionAudit
+}
+
+relationship OneToMany {
+    DailyBalance to Transaction
+}

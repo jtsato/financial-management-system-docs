@@ -1,0 +1,50 @@
+@startuml 02-ContainerDiagram
+!include <C4/C4_Container>
+
+/' Nível 2: Diagrama de contêiner
+   Um contêiner é algo como um aplicativo Web do lado do servidor, um aplicativo de página única, um aplicativo de desktop, 
+   aplicativo móvel, esquema de banco de dados, sistema de arquivos, etc. 
+   Essencialmente, um contêiner é uma unidade executável/implantável separadamente (por exemplo, um espaço de processo separado) 
+   que executa código ou armazena dados.
+'/
+
+title "Diagrama de Containers do Sistema de Gestão Financeira"
+
+AddElementTag("microService", $shape=EightSidedShape(), $legendText="Microserviço")
+AddElementTag("storage", $shape=RoundedBoxShape(), $legendText="Armazenamento")
+AddElementTag("infra", $shape=HexagonShape(), $legendText="Infraestrutura")
+
+LAYOUT_LEFT_RIGHT()
+
+Person(user, "Usuário", "Gerencia transações financeiras")
+
+System_Boundary(fms, "Sistema de Gestão Financeira") {
+    
+    Container(webApp, "Web App", "React", "Interface para gerenciar transações")
+    Container(gateway, "API Gateway", "Nginx", "Controla o roteamento e segurança das APIs")
+    Container(txnAPI, "Serviço de Lançamentos", ".NET Core C#", "Gerencia transações financeiras", $tags="microService")
+    Container(bsAPI, "Serviço de Consolidação", ".NET Core C#", "Consolida saldos diários", $tags="microService")
+    ContainerDb(txnDB, "Transactions DB", "PostgreSQL", "Armazena lançamentos financeiros", $tags="storage")
+    ContainerDb(bsDB, "Balances DB", "MongoDB", "Armazena saldos consolidados", $tags="storage")
+    Container(messaging, "Fila de Mensagens", "Kafka", "Gerencia eventos assíncronos", $tags="infra")
+    Container(monitoring, "Monitoramento", "LGTM Stack", "Coleta métricas e logs", $tags="infra")
+}
+
+Rel(user, webApp, "Usa")
+Rel(webApp, gateway, "Chama APIs")
+Rel(gateway, txnAPI, "Chama API de lançamentos")
+Rel(gateway, bsAPI, "Chama API de saldos")
+Rel(txnAPI, txnDB, "Lê / Escreve dados")
+Rel(bsAPI, bsDB, "Lê / Escreve dados")    
+Rel(txnAPI, messaging, "Publica eventos de transação")
+Rel(bsAPI, messaging, "Consome eventos de transação")
+Rel(messaging, bsAPI, "Entrega eventos de lançamentos")
+Rel(monitoring, txnAPI, "Coleta logs e métricas")
+Rel(monitoring, bsAPI, "Coleta logs e métricas")
+Rel(monitoring, gateway, "Monitora requisições")
+
+Lay_R(monitoring, bsAPI)
+
+LAYOUT_WITH_LEGEND()
+
+@enduml

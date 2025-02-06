@@ -1,0 +1,19 @@
+@startuml 01-ContextDiagram
+!include <C4/C4_Container>
+
+/' Nível 1: Diagrama de Contexto do Sistema
+   Um diagrama de contexto de sistema é um bom ponto de partida para diagramar e documentar um sistema de software, 
+   permitindo visualizar o panorama geral.
+'/
+
+title "Diagrama de Contexto do Sistema de Gestão Financeira"
+
+Person(merchant, "Usuário", "Comerciante que utiliza o sistema para gerenciar transações financeiras.")
+
+System(fms, "Sistema de Gestão Financeira", "Um sistema para gerenciar transações financeiras e saldos.")
+
+Rel(merchant, fms, " Interage com")
+
+LAYOUT_WITH_LEGEND()
+
+@enduml
