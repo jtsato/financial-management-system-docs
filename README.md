@@ -1,3 +1,7 @@
+# **Fluxo de Caixa - Arquitetura de Microsserviços**
+
+Este documento é uma proposta de arquitetura para um sistema de **Fluxo de Caixa** de um comerciante. O sistema deve permitir o registro de lançamentos financeiros e a consolidação do saldo diário. A arquitetura proposta é baseada em **Microsserviços** para garantir escalabilidade, resiliência e desempenho.
+
 **Índice de Conteúdos**
 
 * [Mapeamento de Domínios Funcionais e Capacidades de Negócio](#mapeamento-de-domínios-funcionais-e-capacidades-de-negócio)

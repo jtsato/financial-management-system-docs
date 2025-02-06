@@ -1,11 +1,11 @@
-name: 00 Diagrams Generation
+name: Diagrams Generation
 
 on:
   push:
     branches:
       - 'main'
     paths:
-      - '.github/workflows/00-diagrams-generation.yml'
+      - '.github/workflows/diagrams-generation.yml'
       - 'docs/c4-models/*.puml'
   workflow_dispatch:
 
