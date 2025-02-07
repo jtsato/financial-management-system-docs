@@ -8,6 +8,7 @@ Este documento é uma proposta de arquitetura para um sistema de **Fluxo de Caix
 * [Requisitos](#requisitos)
 * [Arquitetura](#arquitetura)
 * [Justificativas](#justificativas)
+* [ADRs](docs/architectural-decision-records)
 * [Repositórios](#repositórios)
 
 ## Mapeamento
@@ -21,44 +22,72 @@ O **fluxo de caixa** do comerciante pode ser dividido em dois principais domíni
 
 ### **Classe: `Transaction` (Transação Financeira)**
 
-| **Campo**      | **Tipo**        | **Descrição**                                  |
-|----------------|-----------------|------------------------------------------------|
-| `id`           | `Long`          | Identificador único da transação               |
-| `description`  | `String`        | Descrição da transação                         |
-| `amount`       | `BigDecimal`    | Valor da transação (deve ser positivo)         |
-| `type`         | `Type (Enum)`   | Tipo da transação (`DEBIT` ou `CREDIT`)        |
-| `date`         | `Instant`       | Data e hora da transação                       |
-| `status`       | `Status (Enum)` | Status da transação (`ACTIVE` ou `DELETED`)    |
-| `createdAt`    | `Instant`       | Data e hora da criação da transação            |
-| `updatedAt`    | `Instant`       | Data e hora da última atualização da transação |
+| **Campo**      | **Tipo**                | **Descrição**                                                 |
+|----------------|-------------------------|---------------------------------------------------------------|
+| `id`           | `long`                  | Identificador único da transação                              |
+| `description`  | `string`                | Descrição da transação                                        |
+| `amount`       | `decimal`               | Valor da transação (deve ser positivo)                        |
+| `type`         | `Type (enum)`           | Tipo da transação (`DEBIT` ou `CREDIT`)                       |
+| `date`         | `DateTimeOffset`        | Data e hora da transação                                      |
+| `status`       | `Status (enum)`         | Status da transação (`ACTIVE` ou `DELETED`)                   |
+| `createdAt`    | `DateTimeOffset`        | Data e hora da criação da transação                           |
+| `updatedAt`    | `DateTimeOffset`        | Data e hora da última atualização da transação                |
+
+---
 
 ### **Classe: `TransactionAudit` (Auditoria de Transações)**
 
-| **Campo**         | **Tipo**        | **Descrição**                                              |
-|-------------------|-----------------|------------------------------------------------------------|
-| `id`              | `Long`          | Identificador único da auditoria                           |
-| `action`          | `Action (Enum)` | Tipo de ação realizada (`INSERTED`, `MODIFIED`, `DELETED`) |
-| `oldDescription`  | `String`        | Descrição anterior da transação                            |
-| `oldAmount`       | `BigDecimal`    | Valor anterior da transação                                |
-| `oldType`         | `Type (Enum)`   | Tipo anterior da transação (`DEBIT` ou `CREDIT`)           |
-| `changeDate`      | `ZonedDateTime` | Data e hora da alteração   
+| **Campo**         | **Tipo**               | **Descrição**                                                      |
+|-------------------|------------------------|--------------------------------------------------------------------|
+| `id`              | `long`                 | Identificador único da auditoria                                   |
+| `action`          | `Action (enum)`        | Tipo de ação realizada (`INSERTED`, `MODIFIED`, `DELETED`)         |
+| `oldDescription`  | `string`               | Descrição anterior da transação                                    |
+| `oldAmount`       | `decimal`              | Valor anterior da transação                                        |
+| `oldType`         | `Type (enum)`          | Tipo anterior da transação (`DEBIT` ou `CREDIT`)                   |
+| `changeDate`      | `DateTimeOffset`       | Data e hora da alteração                                           |
 
-
+---
 
 ### **2. Domínio de Consolidação Financeira**  
 - Responsável por **agregar e calcular** o saldo diário consolidado.  
 - Deve garantir **eficiência e escalabilidade**, pois lida com um grande volume de requisições.  
 - Pode ter um sistema de **armazenamento otimizado** para consultas rápidas (exemplo: um banco NoSQL para leitura rápida).  
 
-### **Classe: `DailyBalance` (Saldo Diário)**  
+### **Classe: `DailyBalance` (Saldo Diário)**
 
-| **Campo**      | **Tipo**        | **Descrição**                             |
-|----------------|-----------------|-------------------------------------------|
-| `id`           | `Long`          | Identificador único do saldo diário       |
-| `date`         | `LocalDate`     | Data do saldo (um único registro por dia) |
-| `balance`      | `BigDecimal`    | Saldo total consolidado no dia            |
-| `createdAt`    | `ZonedDateTime` | Data e hora da criação do registro        |
-| `updatedAt`    | `ZonedDateTime` | Data e hora da última atualização         |
+| **Campo**      | **Tipo**                | **Descrição**                                        |
+|----------------|-------------------------|------------------------------------------------------|
+| `id`           | `long`                  | Identificador único do saldo diário                  |
+| `date`         | `DateOnly` ou `DateTime`| Data do saldo (um único registro por dia)            |
+| `balance`      | `decimal`               | Saldo total consolidado no dia                       |
+| `createdAt`    | `DateTimeOffset`        | Data e hora da criação do registro                   |
+| `updatedAt`    | `DateTimeOffset`        | Data e hora da última atualização                    |
+
+---
+
+## Enums Refatorados
+
+```csharp
+  public enum Type
+  {
+      DEBIT,
+      CREDIT
+  }
+
+  public enum Status
+  {
+      ACTIVE,
+      DELETED
+  }
+
+  public enum Action
+  {
+      INSERTED,
+      MODIFIED,
+      DELETED
+  }
+```
+
 ***
 
 ## Requisitos  
@@ -135,7 +164,7 @@ A arquitetura proposta segue um modelo de **Microsserviços** para garantir **de
 
 ## Repositórios
 
-* [Transaction API .NET Core](https://github.com/jtsato/fms-transaction-api-netcore)
-* [Balance API .NET Core](https://github.com/jtsato/fms-balance-api-netcore)
+### [Transaction API .NET Core](https://github.com/jtsato/fms-transaction-api-netcore)
+### [Balance API .NET Core](https://github.com/jtsato/fms-balance-api-netcore)
 
 ***
