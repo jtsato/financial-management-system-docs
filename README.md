@@ -4,14 +4,14 @@ Este documento é uma proposta de arquitetura para um sistema de **Fluxo de Caix
 
 **Índice de Conteúdos**
 
-* [Mapeamento](#mapeamento)
-* [Requisitos](#requisitos)
-* [Arquitetura](#arquitetura)
-* [Justificativas](#justificativas)
-* [ADRs](docs/architectural-decision-records)
-* [Repositórios](#repositórios)
+* [Mapeamento de Domínios](#mapeamento-de-domínios)
+* [Requisitos Funcionais e Não Funcionais](#requisitos-funcionais-e-não-funcionais)
+* [Arquitetura Alvo](#arquitetura-alvo)
+* [Justificativas de Tecnologias](#justificativas-de-tecnologias)
+* [Registros de Decisão Arquitetônica (ADRs)](docs/architectural-decision-records)
+* [Repositórios Públicos](#repositórios-públicos)
 
-## Mapeamento
+## Mapeamento de Domínios
 
 O **fluxo de caixa** do comerciante pode ser dividido em dois principais domínios funcionais:  
 
@@ -90,7 +90,7 @@ O **fluxo de caixa** do comerciante pode ser dividido em dois principais domíni
 
 ***
 
-## Requisitos  
+## Requisitos Funcionais e Não Funcionais
 
 ### **Requisitos Funcionais**  
 - O sistema deve permitir **cadastro de lançamentos** financeiros.
@@ -138,7 +138,7 @@ A arquitetura proposta segue um modelo de **Microsserviços** para garantir **de
 
 ***
 
-## Justificativas 
+## Justificativas de Tecnologias
 
 ### **1️⃣ Microsserviços vs Monolito**  
 ✔ **Microsserviços** permitem maior **escalabilidade e resiliência**.  
@@ -162,7 +162,7 @@ A arquitetura proposta segue um modelo de **Microsserviços** para garantir **de
 | **Docker + Kubernetes** | Orquestração para escalabilidade automática                |
 ***
 
-## Repositórios
+## Repositórios Públicos
 
 ### [Transaction API .NET Core](https://github.com/jtsato/fms-transaction-api-netcore)
 ### [Balance API .NET Core](https://github.com/jtsato/fms-balance-api-netcore)
