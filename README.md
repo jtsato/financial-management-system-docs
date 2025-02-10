@@ -28,10 +28,10 @@ O **fluxo de caixa** do comerciante pode ser dividido em dois principais domíni
 | `description`  | `string`                | Descrição da transação                                        |
 | `amount`       | `decimal`               | Valor da transação (deve ser positivo)                        |
 | `type`         | `Type (enum)`           | Tipo da transação (`DEBIT` ou `CREDIT`)                       |
-| `date`         | `DateTimeOffset`        | Data e hora da transação                                      |
+| `date`         | `DateTime`        | Data e hora da transação                                      |
 | `status`       | `Status (enum)`         | Status da transação (`ACTIVE` ou `DELETED`)                   |
-| `createdAt`    | `DateTimeOffset`        | Data e hora da criação da transação                           |
-| `updatedAt`    | `DateTimeOffset`        | Data e hora da última atualização da transação                |
+| `createdAt`    | `DateTime`        | Data e hora da criação da transação                           |
+| `updatedAt`    | `DateTime`        | Data e hora da última atualização da transação                |
 
 ---
 
@@ -44,7 +44,7 @@ O **fluxo de caixa** do comerciante pode ser dividido em dois principais domíni
 | `oldDescription`  | `string`               | Descrição anterior da transação                                    |
 | `oldAmount`       | `decimal`              | Valor anterior da transação                                        |
 | `oldType`         | `Type (enum)`          | Tipo anterior da transação (`DEBIT` ou `CREDIT`)                   |
-| `changeDate`      | `DateTimeOffset`       | Data e hora da alteração                                           |
+| `changeDate`      | `DateTime`             | Data e hora da alteração                                           |
 
 ---
 
@@ -60,12 +60,12 @@ O **fluxo de caixa** do comerciante pode ser dividido em dois principais domíni
 | `id`           | `long`                  | Identificador único do saldo diário                  |
 | `date`         | `DateOnly` ou `DateTime`| Data do saldo (um único registro por dia)            |
 | `balance`      | `decimal`               | Saldo total consolidado no dia                       |
-| `createdAt`    | `DateTimeOffset`        | Data e hora da criação do registro                   |
-| `updatedAt`    | `DateTimeOffset`        | Data e hora da última atualização                    |
+| `createdAt`    | `DateTime`              | Data e hora da criação do registro                   |
+| `updatedAt`    | `DateTime`              | Data e hora da última atualização                    |
 
 ---
 
-## Enums Refatorados
+## Enums
 
 ```csharp
   public enum Type
